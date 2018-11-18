@@ -113,6 +113,6 @@ func main() {
 
 	// Server starting
 	messengerIntegration.Listen(&http.Server{
-		Addr: ":8080",
+		Addr: ":" + os.Getenv("PORT"),
 	}, gobblr)
 }
