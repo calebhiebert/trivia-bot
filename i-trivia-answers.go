@@ -30,8 +30,6 @@ func MultipleChoiceAnswerHandler(c *gbl.Context) {
 		return
 	}
 
-	fmt.Println(luisResult)
-
 	choice, err := strconv.Atoi(luisResult.Entities[0].Resolution.Value)
 	if err != nil {
 		MultipleChoiceAnswerHandlerFallback(c)
@@ -47,8 +45,10 @@ func MultipleChoiceAnswerHandler(c *gbl.Context) {
 	question := c.GetFlag(SQuestions).([]TriviaQuestion)[questionIDX]
 
 	if choice-1 == correctAnswer.MultipleChoice {
+		correctAnswers[len(correctAnswers)-1].UserAnsweredCorrectly = true
 		r.RandomText(correctStrings...)
 	} else {
+		correctAnswers[len(correctAnswers)-1].UserAnsweredCorrectly = false
 		r.RandomText(incorrectStrings...)
 		r.Text("The correct answer is:\n" + question.CorrectAnswer)
 	}
@@ -76,8 +76,6 @@ func TrueOrFalseAnswerHandler(c *gbl.Context) {
 		return
 	}
 
-	fmt.Println(luisResult)
-
 	choice := luisResult.Entities[0].Resolution.Values[0] == "true"
 
 	r := fb.CreateImmediateResponse(c)
@@ -86,8 +84,10 @@ func TrueOrFalseAnswerHandler(c *gbl.Context) {
 	correctAnswer := correctAnswers[len(correctAnswers)-1]
 
 	if choice == correctAnswer.TrueFalse {
+		correctAnswers[len(correctAnswers)-1].UserAnsweredCorrectly = true
 		r.RandomText(correctStrings...)
 	} else {
+		correctAnswers[len(correctAnswers)-1].UserAnsweredCorrectly = false
 		r.RandomText(incorrectStrings...)
 	}
 
@@ -109,5 +109,55 @@ func TrueOrFalseAnswerHandlerFallback(c *gbl.Context) {
 func FinishTriviaHandler(c *gbl.Context) {
 	r := fb.CreateResponse(c)
 
-	r.Text("All done!")
+	answers := c.GetFlag(SCorrectAnswers).([]TriviaCorrectAnswer)
+
+	correctCount := 0
+
+	for _, answer := range answers {
+		if answer.UserAnsweredCorrectly {
+			correctCount++
+		}
+	}
+
+	r.RandomText(
+		"That's it, let's see how you did",
+		"All finished, calculating score...",
+		"That's a wrap 🌯 Hang tight for your score",
+	)
+
+	r.Text("Drumroll please...")
+	r.Text("🥁🥁🥁🥁🥁🥁🥁🥁🥁")
+
+	percentCorrect := (float64(correctCount) / float64(len(answers))) * 100
+
+	if percentCorrect == 0 {
+		r.RandomText(
+			"Yikes, you need to brush up on your trivia",
+			"Maybe next time you'll get one right 😬",
+		)
+	} else if percentCorrect < 50 {
+		r.RandomText(
+			"Not the best score but at least you got some correct",
+			"Oh dear, sadly not the worst I've seen",
+		)
+	} else if percentCorrect < 75 {
+		r.RandomText(
+			"Not bad!",
+			"You're going places kid, good job",
+		)
+	} else if percentCorrect < 100 {
+		r.RandomText(
+			"Almost perfect! Maybe next time",
+			"So close!",
+		)
+	} else if percentCorrect == 100 {
+		r.RandomText(
+			"🙌 A perfect score!",
+			"Just fabulous 👌 100%!",
+		)
+	}
+
+	r.Text(fmt.Sprintf("You got %d/%d", correctCount, len(answers)))
+
+	r.QR(fb.QRText("Play Again", "PLAY_TRIVIA"))
 }

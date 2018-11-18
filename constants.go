@@ -33,6 +33,7 @@ var SQuestionIDX = "sess:trivia-question-idx"
 var SCorrectAnswers = "sess:trivia-correct-answers"
 
 type TriviaCorrectAnswer struct {
-	TrueFalse      bool
-	MultipleChoice int
+	TrueFalse             bool
+	MultipleChoice        int
+	UserAnsweredCorrectly bool
 }

@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/calebhiebert/gobbl"
 	"github.com/calebhiebert/gobbl/context"
@@ -16,6 +18,7 @@ var triviaAPI *TriviaAPI
 
 func main() {
 	triviaAPI = CreateTriviaAPI()
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	gobblr := gbl.New()
 
@@ -50,12 +53,11 @@ func main() {
 	// LUIS is added at this point so that if any of our text routes match
 	// we can skip the NLP process becuase we don't need to know the intent
 	gobblr.Use(luis.LUISMiddleware(louie))
-	gobblr.Use(func(c *gbl.Context) {
-		fmt.Println("INTENT", c.GetStringFlag("intent"))
-		c.Next()
-	})
 
 	gobblr.Use(ictxRouter.Middleware())
+
+	// Fallback handler
+	gobblr.Use(DefaultFallbackHandler)
 
 	/*
 		ROUTE SETUP
@@ -64,6 +66,8 @@ func main() {
 	*/
 	// Text Routes
 	textRouter.Text("GET_STARTED", GetStartedHandler)
+	textRouter.Text("PLAY_TRIVIA", TriviaBeginHandler)
+	textRouter.Text("TRIVIA_DENY", TriviaStartDenyHandler)
 
 	// Contextual Routes
 	ictxRouter.All(bctx.I{"No"}, bctx.C{CStartTriviaPrompt}, TriviaStartDenyHandler)

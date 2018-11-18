@@ -26,7 +26,12 @@ func TriviaLoadQuestionsHandler(c *gbl.Context) {
 	categories := c.GetStringSliceFlag(STriviaCategories)
 	questionCount := c.GetIntFlag(SQuestionCount)
 
-	fmt.Println("Loading", categories[0], questionCount)
+	// r := fb.CreateImmediateResponse(c)
+	// r.RandomText(
+	// 	"Hang tight, I'm thinking of some questions...",
+	// 	"Hold on a sec, I'm just getting questions for you...",
+	// )
+	// r.Send()
 
 	category := triviaAPI.GetCategoryFromString(categories[0])
 
@@ -49,7 +54,11 @@ func TriviaAskQuestionHandler(c *gbl.Context) {
 	r := fb.CreateResponse(c)
 
 	if questionIndex == 0 {
-		r.Text("Let's get started! Here's your first question")
+		if len(questions) > 1 {
+			r.Text("Let's get started! Here's your first question")
+		} else {
+			r.Text("Here's your question")
+		}
 	}
 
 	if questionIndex >= len(questions) {
@@ -67,6 +76,9 @@ func TriviaAskQuestionHandler(c *gbl.Context) {
 }
 
 func TriviaAskMultipleChoice(c *gbl.Context, r *fb.MBResponse, question *TriviaQuestion) {
+
+	// r.TypingTime(1*time.Second, 0, 0, 0, 0)
+
 	r.Text(html.UnescapeString(question.Question))
 
 	var options = []string{

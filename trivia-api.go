@@ -42,7 +42,7 @@ type TriviaQuestion struct {
 func CreateTriviaAPI() *TriviaAPI {
 	return &TriviaAPI{
 		client: &http.Client{
-			Timeout: 15 * time.Second,
+			Timeout: 5 * time.Second,
 		},
 	}
 }

@@ -20,3 +20,16 @@ func GetStartedHandler(c *gbl.Context) {
 	// Add the start trivia prompt context so we know what to do when the user says yes or no
 	bctx.Add(c, CStartTriviaPrompt, 1)
 }
+
+func DefaultFallbackHandler(c *gbl.Context) {
+	r := fb.CreateResponse(c)
+
+	r.RandomText(
+		"Sorry, I don't really understand what you're saying",
+		"I don't get it, sorry :(",
+	)
+
+	r.Text("Trivia is the only thing I'm good at, would you like to play a game? :)")
+
+	r.QR(fb.QRText("Yes! 😊", "PLAY_TRIVIA"), fb.QRText("No thanks", "TRIVIA_DENY"))
+}

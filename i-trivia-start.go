@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"strconv"
-	"strings"
 
 	"github.com/calebhiebert/gobbl"
 	"github.com/calebhiebert/gobbl/context"
@@ -48,7 +47,7 @@ func TriviaBeginHandler(c *gbl.Context) {
 		"I've got you covered.",
 	)
 	r.RandomText(
-		"Take a look at what we got here, just pick one to get started",
+		"Take a look at what I've got here, just pick one to get started",
 		"What type of questions do you want?",
 		"Step right up and choose a category!",
 	)
@@ -68,8 +67,6 @@ func TriviaCategorySelectedHandler(c *gbl.Context) {
 	categories := []string{}
 
 	for _, entity := range luisResult.Entities {
-		fmt.Println(entity)
-
 		if entity.Resolution.Values != nil {
 			for _, category := range entity.Resolution.Values {
 				categories = append(categories, category)
@@ -83,7 +80,11 @@ func TriviaCategorySelectedHandler(c *gbl.Context) {
 		return
 	}
 
-	r.Text("You picked " + strings.Join(categories, ", "))
+	r.RandomText(
+		fmt.Sprintf("Good choice, I've always been partial to %s myself", categories[0]),
+		fmt.Sprintf("%s eh? Let's do this", categories[0]),
+		fmt.Sprintf("Questions about %s coming right up", categories[0]),
+	)
 
 	// Add the selected categoreies to the session
 	c.Flag(STriviaCategories, categories)
