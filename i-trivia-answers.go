@@ -10,6 +10,18 @@ import (
 	"github.com/calebhiebert/gobbl/messenger"
 )
 
+var correctStrings = []string{
+	"🎉🎉 Correct 🎉🎉", "✔️ You right", "Excellent 👌",
+	"🎆🎇 YES 🎇🎆", "Oohhh, yeaaaahhhhhhhh 😎", "💯% correct",
+	"💸💸💸 Yup 💸💸💸",
+	`_ ____ ____ 
+/ /  _ /  _ \
+| | / \| / \|
+| | \_/| \_/|
+\_\____\____/`}
+
+var incorrectStrings = []string{"❌ Wrong", "😞 Incorrect", "Nope 😑"}
+
 func MultipleChoiceAnswerHandler(c *gbl.Context) {
 	luisResult := c.GetFlag("luis").(*luis.LUISResponse)
 
@@ -35,14 +47,9 @@ func MultipleChoiceAnswerHandler(c *gbl.Context) {
 	question := c.GetFlag(SQuestions).([]TriviaQuestion)[questionIDX]
 
 	if choice-1 == correctAnswer.MultipleChoice {
-		r.RandomText("🎉🎉 Correct 🎉🎉", "✔️ You right", "Excellent 👌", "🎆🎇 YES 🎇🎆", "Oohhh, yeaaaahhhhhhhh 😎", "💯% correct", "💸💸💸 Yup 💸💸💸",
-			`_ ____ ____ 
-			/ /  _ /  _ \
-			| | / \| / \|
-			| | \_/| \_/|
-			\_\____\____/`)
+		r.RandomText(correctStrings...)
 	} else {
-		r.RandomText("wrong :(")
+		r.RandomText(incorrectStrings...)
 		r.Text("The correct answer is:\n" + question.CorrectAnswer)
 	}
 
@@ -79,9 +86,9 @@ func TrueOrFalseAnswerHandler(c *gbl.Context) {
 	correctAnswer := correctAnswers[len(correctAnswers)-1]
 
 	if choice == correctAnswer.TrueFalse {
-		r.RandomText("🎉🎉 Correct 🎉🎉", "✔️ You right", "Excellent 👌", "🎆🎇 YES 🎇🎆", "Oohhh, yeaaaahhhhhhhh 😎", "💯% correct", "💸💸💸 Yup 💸💸💸")
+		r.RandomText(correctStrings...)
 	} else {
-		r.RandomText("Nope :(")
+		r.RandomText(incorrectStrings...)
 	}
 
 	r.Send()

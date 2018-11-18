@@ -24,9 +24,10 @@ var categoryQR = []fb.QuickReply{
 }
 
 var qnumQR = []fb.QuickReply{
-	fb.QRText("Just 1", "1"),
+	fb.QRText("1", "1"),
 	fb.QRText("5", "5"),
 	fb.QRText("10", "10"),
+	fb.QRText("15", "15"),
 }
 
 func TriviaStartDenyHandler(c *gbl.Context) {
@@ -41,8 +42,16 @@ func TriviaBeginHandler(c *gbl.Context) {
 
 	r := fb.CreateResponse(c)
 
-	r.Text("One Quiz coming right up!")
-	r.Text("We have a number of categories to choose from, you can pick from the buttons below, or type one in!")
+	r.RandomText(
+		"Sure, let's get this trivia started!",
+		"👉😎👉 You got it, let's do this",
+		"I've got you covered.",
+	)
+	r.RandomText(
+		"Take a look at what we got here, just pick one to get started",
+		"What type of questions do you want?",
+		"Step right up and choose a category!",
+	)
 
 	// Trivia category quick replies
 	r.QR(categoryQR...)
@@ -80,7 +89,11 @@ func TriviaCategorySelectedHandler(c *gbl.Context) {
 	c.Flag(STriviaCategories, categories)
 
 	// Send the prompt for how many questions they would like
-	r.Text("How many questions would you like to be asked? You can type in a number or choose from the options below")
+	r.RandomText(
+		"How many questions?",
+		"How much trivia do you want exactly?",
+		"It would please me to know how many questions you desire",
+	)
 
 	// Add quick replies for number of questions
 	r.QR(qnumQR...)
