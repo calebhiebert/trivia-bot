@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html"
 	"strconv"
 
 	"github.com/calebhiebert/gobbl"
@@ -45,7 +46,7 @@ func MultipleChoiceAnswerHandler(c *gbl.Context) {
 	} else {
 		correctAnswers[len(correctAnswers)-1].UserAnsweredCorrectly = false
 		r.RandomText(incorrectStrings...)
-		r.Text("The correct answer is:\n" +  html.Unescape(question.CorrectAnswer))
+		r.Text("The correct answer is:\n" + html.UnescapeString(question.CorrectAnswer))
 	}
 
 	r.Send()
