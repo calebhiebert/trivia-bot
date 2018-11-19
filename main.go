@@ -111,8 +111,14 @@ func main() {
 		fmt.Println("Profile", res)
 	}
 
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8080"
+	}
+
 	// Server starting
 	messengerIntegration.Listen(&http.Server{
-		Addr: ":" + os.Getenv("PORT"),
+		Addr: ":" + port,
 	}, gobblr)
 }

@@ -1,0 +1,369 @@
+{
+  "luis_schema_version": "3.1.0",
+  "versionId": "0.1",
+  "name": "Trivia Bot",
+  "desc": "NLP For the GOBBL example trivia bot",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "No"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Number"
+    },
+    {
+      "name": "Ordinal"
+    },
+    {
+      "name": "Play"
+    },
+    {
+      "name": "Trivia Category"
+    },
+    {
+      "name": "True False"
+    },
+    {
+      "name": "Yes"
+    }
+  ],
+  "entities": [],
+  "composites": [],
+  "closedLists": [
+    {
+      "name": "TriviaCategory",
+      "subLists": [
+        {
+          "canonicalForm": "General",
+          "list": [
+            "General Knowledge",
+            "Doesn't matter",
+            "anything",
+            "general"
+          ]
+        },
+        {
+          "canonicalForm": "Books",
+          "list": [
+            "books",
+            "book",
+            "paperback",
+            "library",
+            "hardcover",
+            "publishing"
+          ]
+        },
+        {
+          "canonicalForm": "Movies",
+          "list": [
+            "Movies",
+            "films",
+            "theater",
+            "film"
+          ]
+        },
+        {
+          "canonicalForm": "TV",
+          "list": [
+            "tv",
+            "television",
+            "tv shows",
+            "shows"
+          ]
+        },
+        {
+          "canonicalForm": "Video Games",
+          "list": [
+            "games",
+            "video games",
+            "nintendo",
+            "xbox",
+            "play station"
+          ]
+        },
+        {
+          "canonicalForm": "Science",
+          "list": [
+            "Science",
+            "nature",
+            "forest"
+          ]
+        },
+        {
+          "canonicalForm": "Mythology",
+          "list": [
+            "greek mythology",
+            "myth",
+            "greek"
+          ]
+        },
+        {
+          "canonicalForm": "History",
+          "list": [
+            "history",
+            "past",
+            "ancient"
+          ]
+        },
+        {
+          "canonicalForm": "Politics",
+          "list": [
+            "politics",
+            "president",
+            "senate",
+            "congress"
+          ]
+        }
+      ],
+      "roles": []
+    },
+    {
+      "name": "TrueFalse",
+      "subLists": [
+        {
+          "canonicalForm": "true",
+          "list": [
+            "True",
+            "truth"
+          ]
+        },
+        {
+          "canonicalForm": "false",
+          "list": [
+            "false",
+            "lies"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [
+    {
+      "name": "number",
+      "roles": []
+    },
+    {
+      "name": "ordinal",
+      "roles": []
+    }
+  ],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [
+    {
+      "pattern": "{TriviaCategory}",
+      "intent": "Trivia Category"
+    },
+    {
+      "pattern": "{TrueFalse}",
+      "intent": "True False"
+    },
+    {
+      "pattern": "{number}",
+      "intent": "Number"
+    },
+    {
+      "pattern": "{ordinal}",
+      "intent": "Ordinal"
+    }
+  ],
+  "utterances": [
+    {
+      "text": "1",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "10",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "11",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "3rd",
+      "intent": "Ordinal",
+      "entities": []
+    },
+    {
+      "text": "7 is just right thank you",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "books",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "can i have more questions?",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "for sure",
+      "intent": "Yes",
+      "entities": []
+    },
+    {
+      "text": "general",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "give me 25",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "history",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "hit me with five",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "i want to do science",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "i want to play",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "i'd like 30",
+      "intent": "Number",
+      "entities": []
+    },
+    {
+      "text": "let me play",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "lies!",
+      "intent": "True False",
+      "entities": []
+    },
+    {
+      "text": "more trivia",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "movies sounds good",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "nah",
+      "intent": "No",
+      "entities": []
+    },
+    {
+      "text": "never",
+      "intent": "No",
+      "entities": []
+    },
+    {
+      "text": "no",
+      "intent": "No",
+      "entities": []
+    },
+    {
+      "text": "nope",
+      "intent": "No",
+      "entities": []
+    },
+    {
+      "text": "not a chance",
+      "intent": "No",
+      "entities": []
+    },
+    {
+      "text": "number 1",
+      "intent": "Ordinal",
+      "entities": []
+    },
+    {
+      "text": "of course",
+      "intent": "Yes",
+      "entities": []
+    },
+    {
+      "text": "play again",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "quiz me",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "that's true",
+      "intent": "True False",
+      "entities": []
+    },
+    {
+      "text": "the first one",
+      "intent": "Ordinal",
+      "entities": []
+    },
+    {
+      "text": "trivia",
+      "intent": "Play",
+      "entities": []
+    },
+    {
+      "text": "true",
+      "intent": "True False",
+      "entities": []
+    },
+    {
+      "text": "tv",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "video games",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "what about politics",
+      "intent": "Trivia Category",
+      "entities": []
+    },
+    {
+      "text": "yeah",
+      "intent": "Yes",
+      "entities": []
+    },
+    {
+      "text": "yes",
+      "intent": "Yes",
+      "entities": []
+    },
+    {
+      "text": "yup",
+      "intent": "Yes",
+      "entities": []
+    }
+  ],
+  "settings": []
+}

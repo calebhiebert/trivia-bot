@@ -13,12 +13,7 @@ import (
 var correctStrings = []string{
 	"🎉🎉 Correct 🎉🎉", "✔️ You right", "Excellent 👌",
 	"🎆🎇 YES 🎇🎆", "Oohhh, yeaaaahhhhhhhh 😎", "💯% correct",
-	"💸💸💸 Yup 💸💸💸",
-	`_ ____ ____ 
-/ /  _ /  _ \
-| | / \| / \|
-| | \_/| \_/|
-\_\____\____/`}
+	"💸💸💸 Yup 💸💸💸"}
 
 var incorrectStrings = []string{"❌ Wrong", "😞 Incorrect", "Nope 😑"}
 
