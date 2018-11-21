@@ -52,7 +52,7 @@ func main() {
 
 	// LUIS is added at this point so that if any of our text routes match
 	// we can skip the NLP process becuase we don't need to know the intent
-	gobblr.Use(luis.LUISMiddleware(louie))
+	gobblr.Use(luis.Middleware(louie))
 
 	gobblr.Use(ictxRouter.Middleware())
 

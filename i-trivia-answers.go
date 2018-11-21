@@ -19,7 +19,7 @@ var correctStrings = []string{
 var incorrectStrings = []string{"❌ Wrong", "😞 Incorrect", "Nope 😑"}
 
 func MultipleChoiceAnswerHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.LUISResponse)
+	luisResult := c.GetFlag("luis").(*luis.Response)
 
 	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
 		MultipleChoiceAnswerHandlerFallback(c)
@@ -65,7 +65,7 @@ func MultipleChoiceAnswerHandlerFallback(c *gbl.Context) {
 }
 
 func TrueOrFalseAnswerHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.LUISResponse)
+	luisResult := c.GetFlag("luis").(*luis.Response)
 
 	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
 		TrueOrFalseAnswerHandlerFallback(c)

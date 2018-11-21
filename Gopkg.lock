@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4af21b38de3c8b3a28a16dd2ee55ee3d29cdc542c597caeb819c845534c53b5b"
+  digest = "1:662007610a40e8a8f4b6c837f451cacd0ab45d74d1cbb943f054807127b3d861"
   name = "github.com/calebhiebert/gobbl"
   packages = [
     ".",
@@ -13,7 +13,7 @@
     "session",
   ]
   pruneopts = "UT"
-  revision = "e80a658a06109a6a97f34320d112fd98ec1c87e4"
+  revision = "33ca6cd5fbfe405e708453574a141362a49ec2f8"
 
 [solve-meta]
   analyzer-name = "dep"

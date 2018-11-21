@@ -62,7 +62,7 @@ func TriviaBeginHandler(c *gbl.Context) {
 func TriviaCategorySelectedHandler(c *gbl.Context) {
 	r := fb.CreateResponse(c)
 
-	luisResult := c.GetFlag("luis").(*luis.LUISResponse)
+	luisResult := c.GetFlag("luis").(*luis.Response)
 
 	categories := []string{}
 
@@ -114,7 +114,7 @@ func TriviaCategorySelectionFallbackHandler(c *gbl.Context) {
 }
 
 func TriviaSelectQuestionCountHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.LUISResponse)
+	luisResult := c.GetFlag("luis").(*luis.Response)
 
 	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
 		TriviaSelectQuestionCountFallbackHandler(c)
