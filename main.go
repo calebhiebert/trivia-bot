@@ -26,6 +26,7 @@ func main() {
 		STANDARD MIDDLEWARE SETUP
 		****************************************
 	*/
+	gobblr.Use(gbl.ResponderMiddleware())
 	gobblr.Use(gbl.UserExtractionMiddleware())
 	gobblr.Use(gbl.RequestExtractionMiddleware())
 	gobblr.Use(fb.MarkSeenMiddleware())

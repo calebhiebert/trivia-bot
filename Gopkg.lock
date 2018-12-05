@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:662007610a40e8a8f4b6c837f451cacd0ab45d74d1cbb943f054807127b3d861"
+  digest = "1:7d4989a11c9a7c883a4920419f4644437006b7ca0e5672ce267d3c6ef75b56df"
   name = "github.com/calebhiebert/gobbl"
   packages = [
     ".",
@@ -13,7 +13,23 @@
     "session",
   ]
   pruneopts = "UT"
-  revision = "33ca6cd5fbfe405e708453574a141362a49ec2f8"
+  revision = "380af02b946a8a747340c559a624344216396852"
+
+[[projects]]
+  branch = "master"
+  digest = "1:be40f095cd741773905744f16c1f7a21fd9226ccd0529f019deb7da6d667f71c"
+  name = "github.com/logrusorgru/aurora"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a7b3b318ed4e1ae5b80602b08627267303c68572"
+
+[[projects]]
+  branch = "master"
+  digest = "1:7af7e6d4c8334420eb075b54d5eff873e375b32f0740e4e4c819b69e0704c32d"
+  name = "github.com/matoous/go-nanoid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "eab626deece6c9806cfbe2290859eb31a934edb0"
 
 [solve-meta]
   analyzer-name = "dep"
