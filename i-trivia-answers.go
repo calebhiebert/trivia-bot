@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 	"html"
-	"strconv"
 
 	"github.com/calebhiebert/gobbl"
 	"github.com/calebhiebert/gobbl/context"
-	"github.com/calebhiebert/gobbl/luis"
 	"github.com/calebhiebert/gobbl/messenger"
 )
 
@@ -19,15 +17,14 @@ var correctStrings = []string{
 var incorrectStrings = []string{"❌ Wrong", "😞 Incorrect", "Nope 😑"}
 
 func MultipleChoiceAnswerHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.Response)
-
-	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
+	if !c.HasFlag("dflow:p:number") {
 		MultipleChoiceAnswerHandlerFallback(c)
 		return
 	}
 
-	choice, err := strconv.Atoi(luisResult.Entities[0].Resolution.Value)
-	if err != nil {
+	choice := int(c.GetFloat64Flag("dflow:p:number"))
+
+	if choice > 4 || choice < 0 {
 		MultipleChoiceAnswerHandlerFallback(c)
 		return
 	}
@@ -65,14 +62,12 @@ func MultipleChoiceAnswerHandlerFallback(c *gbl.Context) {
 }
 
 func TrueOrFalseAnswerHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.Response)
-
-	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
+	if !c.HasFlag("dflow:p:TrueFalse") {
 		TrueOrFalseAnswerHandlerFallback(c)
 		return
 	}
 
-	choice := luisResult.Entities[0].Resolution.Values[0] == "true"
+	choice := c.GetFlag("dflow:p:TrueFalse") == "true"
 
 	r := fb.CreateImmediateResponse(c)
 

@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/calebhiebert/gobbl"
 	"github.com/calebhiebert/gobbl/context"
-	"github.com/calebhiebert/gobbl/luis"
 	"github.com/calebhiebert/gobbl/messenger"
 )
 
@@ -62,16 +60,12 @@ func TriviaBeginHandler(c *gbl.Context) {
 func TriviaCategorySelectedHandler(c *gbl.Context) {
 	r := fb.CreateResponse(c)
 
-	luisResult := c.GetFlag("luis").(*luis.Response)
+	fmt.Println(c.Flags)
 
 	categories := []string{}
 
-	for _, entity := range luisResult.Entities {
-		if entity.Resolution.Values != nil {
-			for _, category := range entity.Resolution.Values {
-				categories = append(categories, category)
-			}
-		}
+	if c.HasFlag("dflow:p:TriviaCategory") {
+		categories = c.GetStringSliceFlag("dflow:p:TriviaCategory")
 	}
 
 	// Redirect to the fallback if no categories were found
@@ -114,26 +108,13 @@ func TriviaCategorySelectionFallbackHandler(c *gbl.Context) {
 }
 
 func TriviaSelectQuestionCountHandler(c *gbl.Context) {
-	luisResult := c.GetFlag("luis").(*luis.Response)
+	var num float64 = -1
 
-	if luisResult.Entities == nil || len(luisResult.Entities) == 0 {
+	if c.HasFlag("dflow:p:number") {
+		num = c.GetFloat64Flag("dflow:p:number")
+	} else {
 		TriviaSelectQuestionCountFallbackHandler(c)
 		return
-	}
-
-	var num = -1
-	var err error
-
-	// Extract the number result
-	for _, entity := range luisResult.Entities {
-		if entity.Type == "builtin.number" {
-			num, err = strconv.Atoi(entity.Resolution.Value)
-			if err == nil {
-				break
-			} else {
-				fmt.Println("Number parse err", err)
-			}
-		}
 	}
 
 	// Make sure the number is actually a number
@@ -145,7 +126,7 @@ func TriviaSelectQuestionCountHandler(c *gbl.Context) {
 		return
 	}
 
-	c.Flag(SQuestionCount, num)
+	c.Flag(SQuestionCount, int(num))
 
 	TriviaLoadQuestionsHandler(c)
 }
